@@ -2,140 +2,363 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Palma Stag Trip</title>
 
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  />
+
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: Arial, sans-serif;
       margin: 0;
+      font-family: Arial, sans-serif;
       background: #f4f6f8;
+      color: #1f2937;
     }
 
     .container {
-      max-width: 900px;
-      margin: auto;
+      max-width: 1100px;
+      margin: 0 auto;
       padding: 20px;
-      background: white;
     }
 
-    h1 {
-      text-align: center;
-      margin-bottom: 10px;
-    }
-
-    .subtitle {
-      text-align: center;
-      color: #666;
+    .hero {
+      background: linear-gradient(135deg, #111827, #1f2937);
+      color: white;
+      padding: 28px 20px;
+      border-radius: 14px;
       margin-bottom: 20px;
     }
 
-    .section {
-      margin-bottom: 25px;
+    .hero h1 {
+      margin: 0 0 8px;
+      font-size: 2rem;
+    }
+
+    .hero p {
+      margin: 0;
+      color: #d1d5db;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    @media (min-width: 900px) {
+      .grid {
+        grid-template-columns: 1.1fr 0.9fr;
+      }
     }
 
     .card {
-      background: #fafafa;
-      padding: 15px;
-      border-radius: 8px;
+      background: white;
+      border-radius: 14px;
+      padding: 18px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
     }
 
-    .hotel-list {
-      display: grid;
-      gap: 10px;
+    h2 {
+      margin-top: 0;
+      font-size: 1.25rem;
     }
 
-    .hotel {
-      padding: 10px;
-      background: #f0f0f0;
-      border-radius: 6px;
-    }
-
-    .hotel strong {
-      display: block;
-    }
-
-    iframe {
-      width: 100%;
-      height: 400px;
-      border: none;
-      border-radius: 8px;
+    .info-block {
+      margin-bottom: 14px;
+      padding: 12px;
+      border-radius: 10px;
+      background: #f9fafb;
     }
 
     .highlight {
-      border-left: 4px solid #007bff;
+      border-left: 5px solid #2563eb;
+      background: #eff6ff;
+    }
+
+    #map {
+      width: 100%;
+      height: 540px;
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    .stay-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .stay {
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 14px;
+      background: #fcfcfd;
+    }
+
+    .stay.base {
+      border-color: #2563eb;
+      background: #eff6ff;
+    }
+
+    .stay h3 {
+      margin: 0 0 6px;
+      font-size: 1rem;
+    }
+
+    .stay p {
+      margin: 6px 0;
+      color: #4b5563;
+      line-height: 1.4;
+    }
+
+    .tag {
+      display: inline-block;
+      margin-bottom: 8px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: bold;
+      background: #e5e7eb;
+      color: #374151;
+    }
+
+    .tag.base {
+      background: #2563eb;
+      color: white;
+    }
+
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .links a {
+      text-decoration: none;
+      font-weight: bold;
+      color: #2563eb;
+      font-size: 0.95rem;
+    }
+
+    .links a:hover {
+      text-decoration: underline;
+    }
+
+    .note {
+      margin-top: 12px;
+      font-size: 0.9rem;
+      color: #6b7280;
+    }
+
+    .leaflet-popup-content {
+      line-height: 1.45;
+    }
+
+    .leaflet-popup-content a {
+      color: #2563eb;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .leaflet-popup-content a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
-
 <body>
-
   <div class="container">
-
-    <h1>🍻 Palma Stag Trip</h1>
-    <div class="subtitle">18–21 June 2026</div>
-
-    <!-- Flights -->
-    <div class="section card">
-      <h2>✈️ Flights</h2>
-      <p><strong>Outbound:</strong> Jet2 LS531 — Newcastle → Palma (07:30 → 11:25)</p>
-      <p><strong>Return:</strong> easyJet EXY7255 — Palma → Newcastle (18:15 → 20:15)</p>
+    <div class="hero">
+      <h1>🍻 Palma Stag Trip</h1>
+      <p>18–21 June 2026 • Share this page with the group</p>
     </div>
 
-    <!-- Base Hotel -->
-    <div class="section card highlight">
-      <h2>🏨 Base Hotel (Main Group)</h2>
-      <p><strong>Hotel Palladium</strong></p>
-      <p>Paseo Mallorca 40, 07012 Palma, Spain</p>
-    </div>
+    <div class="grid">
+      <div>
+        <div class="card">
+          <h2>🗺️ Group Map</h2>
+          <div id="map"></div>
+          <p class="note">
+            Click any pin to see the stay details and open its website or directions.
+          </p>
+        </div>
+      </div>
 
-    <!-- Map -->
-    <div class="section">
-      <h2>🗺️ Map (Base Location)</h2>
-      <iframe 
-        src="https://www.google.com/maps?q=Hotel+Palladium+Palma&output=embed">
-      </iframe>
-    </div>
+      <div>
+        <div class="card">
+          <h2>✈️ Travel Details</h2>
 
-    <!-- Nearby Hotels -->
-    <div class="section">
-      <h2>🏨 Nearby Hotels / Hostels / Guest Houses</h2>
+          <div class="info-block">
+            <strong>Dates</strong><br />
+            18–21 June 2026
+          </div>
 
-      <div class="hotel-list">
+          <div class="info-block">
+            <strong>Outbound</strong><br />
+            Jet2 LS531 — Newcastle → Palma<br />
+            07:30 → 11:25
+          </div>
 
-        <div class="hotel">
-          <strong>Apuntadores 8 (Guest House)</strong>
-          Calle Apuntadores 8, Palma Old Town
+          <div class="info-block">
+            <strong>Return</strong><br />
+            easyJet EXY7255 — Palma → Newcastle<br />
+            18:15 → 20:15
+          </div>
+
+          <div class="info-block highlight">
+            <strong>Main Group Hotel</strong><br />
+            Hotel Palladium<br />
+            Paseo Mallorca 40, 07012 Palma, Spain
+          </div>
         </div>
 
-        <div class="hotel">
-          <strong>El Josemari Youth Hostel</strong>
-          Plaça de Quadrado, Palma Old Town
-        </div>
+        <div class="card" style="margin-top: 20px;">
+          <h2>🏨 Nearby Stays</h2>
 
-        <div class="hotel">
-          <strong>The Boc Hostels – Palma</strong>
-          Arxiduc Lluís Salvador 46
+          <div class="stay-list" id="stayList"></div>
         </div>
-
-        <div class="hotel">
-          <strong>Hostal Pons (Budget Guest House)</strong>
-          Calle del Vi 8, Palma
-        </div>
-
-        <div class="hotel">
-          <strong>Hotel Almudaina</strong>
-          Avenida Jaime III (very close to base)
-        </div>
-
-        <div class="hotel">
-          <strong>INNSiDE by Meliá Palma Center</strong>
-          Font i Monteros area
-        </div>
-
       </div>
     </div>
-
   </div>
 
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+  ></script>
+
+  <script>
+    const stays = [
+      {
+        name: "Hotel Palladium",
+        type: "Base hotel",
+        isBase: true,
+        address: "Paseo Mallorca 40, 07012 Palma, Spain",
+        website: "https://www.hotelpalladium.com/en/home/",
+        maps: "https://www.google.com/maps/search/?api=1&query=Hotel+Palladium+Paseo+Mallorca+40+Palma",
+        lat: 39.5716,
+        lng: 2.6460
+      },
+      {
+        name: "Apuntadores 8",
+        type: "Guest house",
+        isBase: false,
+        address: "C/ Apuntadores 8, 07012 Palma de Mallorca, Spain",
+        website: "https://www.apuntadoreshostal.com/en/apuntadores/",
+        maps: "https://www.google.com/maps/search/?api=1&query=Apuntadores+8+Palma",
+        lat: 39.568996,
+        lng: 2.645684
+      },
+      {
+        name: "El Josemari Hostel",
+        type: "Hostel",
+        isBase: false,
+        address: "Plaça Josep Maria del Quadrado, 2, Palma, Spain",
+        website: "https://www.eljosemari.com/en/",
+        maps: "https://www.google.com/maps/search/?api=1&query=El+Josemari+Hostel+Palma",
+        lat: 39.5684,
+        lng: 2.6519
+      },
+      {
+        name: "The Boc Palma",
+        type: "Hostel",
+        isBase: false,
+        address: "Calle Arxiduc Lluís Salvador 46, 07004 Palma, Spain",
+        website: "https://thebochostels.com/en/hostal/the-boc-palma/",
+        maps: "https://www.google.com/maps/search/?api=1&query=The+Boc+Palma",
+        lat: 39.5776,
+        lng: 2.6515
+      },
+      {
+        name: "Hostal Pons",
+        type: "Guest house",
+        isBase: false,
+        address: "Carrer del Vi, 8, 07012 Palma, Spain",
+        website: "https://hostalpons.com/",
+        maps: "https://www.google.com/maps/search/?api=1&query=Hostal+Pons+Palma",
+        lat: 39.5698,
+        lng: 2.6432
+      },
+      {
+        name: "Hotel Almudaina",
+        type: "Hotel",
+        isBase: false,
+        address: "Avenida Jaime III, 9, 07012 Palma de Mallorca, Spain",
+        website: "https://www.hotelalmudaina.com/en/",
+        maps: "https://www.google.com/maps/search/?api=1&query=Hotel+Almudaina+Palma",
+        lat: 39.5719,
+        lng: 2.6470
+      },
+      {
+        name: "INNSiDE Palma Center",
+        type: "Hotel",
+        isBase: false,
+        address: "Carrer de Font i Monteros, 23, 07003 Palma, Spain",
+        website: "https://www.melia.com/en/hotels/spain/majorca/innside-palma-center",
+        maps: "https://www.google.com/maps/search/?api=1&query=INNSiDE+Palma+Center",
+        lat: 39.5748,
+        lng: 2.6542
+      }
+    ];
+
+    const map = L.map("map").setView([39.5716, 2.6475], 14);
+
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    const bounds = [];
+
+    stays.forEach((stay) => {
+      const marker = L.marker([stay.lat, stay.lng]).addTo(map);
+
+      marker.bindPopup(`
+        <div>
+          <strong>${stay.name}</strong><br />
+          ${stay.type}<br />
+          ${stay.address}<br /><br />
+          <a href="${stay.website}" target="_blank" rel="noopener noreferrer">Official site</a><br />
+          <a href="${stay.maps}" target="_blank" rel="noopener noreferrer">Directions</a>
+        </div>
+      `);
+
+      bounds.push([stay.lat, stay.lng]);
+    });
+
+    if (bounds.length > 0) {
+      map.fitBounds(bounds, { padding: [30, 30] });
+    }
+
+    const stayList = document.getElementById("stayList");
+
+    stays.forEach((stay) => {
+      const div = document.createElement("div");
+      div.className = stay.isBase ? "stay base" : "stay";
+
+      div.innerHTML = `
+        <div class="tag ${stay.isBase ? "base" : ""}">
+          ${stay.isBase ? "Main Group Hotel" : stay.type}
+        </div>
+        <h3>${stay.name}</h3>
+        <p>${stay.address}</p>
+        <div class="links">
+          <a href="${stay.website}" target="_blank" rel="noopener noreferrer">Official site</a>
+          <a href="${stay.maps}" target="_blank" rel="noopener noreferrer">Directions</a>
+        </div>
+      `;
+
+      stayList.appendChild(div);
+    });
+  </script>
 </body>
 </html>
