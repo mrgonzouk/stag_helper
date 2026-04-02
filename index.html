@@ -5,13 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Palma Stag Trip</title>
 
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-    crossorigin=""
-  />
-
   <style>
     * {
       box-sizing: border-box;
@@ -84,11 +77,11 @@
       background: #fef2f2;
     }
 
-    #map {
+    .map-embed iframe {
       width: 100%;
       height: 540px;
+      border: 0;
       border-radius: 14px;
-      overflow: hidden;
     }
 
     .stay-list {
@@ -159,36 +152,31 @@
       font-size: 0.9rem;
       color: #6b7280;
     }
-
-    .leaflet-popup-content {
-      line-height: 1.45;
-    }
-
-    .leaflet-popup-content a {
-      color: #2563eb;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .leaflet-popup-content a:hover {
-      text-decoration: underline;
-    }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="hero">
       <h1>🍻 Palma Stag Trip</h1>
-      <p>18–21 June 2026</p>
+      <p>18–21 June 2026 • Share this page with the group</p>
     </div>
 
     <div class="grid">
       <div>
         <div class="card">
           <h2>🗺️ Group Map</h2>
-          <div id="map"></div>
+
+          <div class="map-embed">
+            <iframe
+              src="https://www.google.com/maps/d/u/0/embed?mid=17nJlYGkVbE97x53jLl1IjRlny3YpIkE&ehbc=2E312F"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+          </div>
+
           <p class="note">
-            Click any pin to see the stay details and open its website or directions.
+            Map pins are manually checked in Google My Maps for better accuracy.
           </p>
         </div>
       </div>
@@ -223,162 +211,81 @@
 
         <div class="card" style="margin-top: 20px;">
           <h2>🏨 Nearby Stays</h2>
-          <div class="stay-list" id="stayList"></div>
+
+          <div class="stay-list">
+            <div class="stay base">
+              <div class="tag base">Main Group Hotel</div>
+              <h3>Hotel Palladium</h3>
+              <p>Paseo Mallorca 40, 07012 Palma, Spain</p>
+              <div class="links">
+                <a href="https://www.hotelpalladium.com/en/home/" target="_blank" rel="noopener noreferrer">Official site</a>
+                <a href="https://www.google.com/maps/search/?api=1&query=Hotel+Palladium+Paseo+Mallorca+40+Palma" target="_blank" rel="noopener noreferrer">Directions</a>
+              </div>
+            </div>
+
+            <div class="stay">
+              <div class="tag">Guest house</div>
+              <h3>Apuntadores 8</h3>
+              <p>C/ Apuntadores 8, 07012 Palma de Mallorca, Spain</p>
+              <div class="links">
+                <a href="https://www.apuntadoreshostal.com/en/apuntadores/" target="_blank" rel="noopener noreferrer">Official site</a>
+                <a href="https://www.google.com/maps/search/?api=1&query=Apuntadores+8+Palma" target="_blank" rel="noopener noreferrer">Directions</a>
+              </div>
+            </div>
+
+            <div class="stay">
+              <div class="tag">Hostel</div>
+              <h3>El Josemari Hostel</h3>
+              <p>Plaça Josep Maria del Quadrado, 2, Palma, Spain</p>
+              <div class="links">
+                <a href="https://www.eljosemari.com/en/" target="_blank" rel="noopener noreferrer">Official site</a>
+                <a href="https://www.google.com/maps/search/?api=1&query=El+Josemari+Hostel+Palma" target="_blank" rel="noopener noreferrer">Directions</a>
+              </div>
+            </div>
+
+            <div class="stay">
+              <div class="tag">Hostel</div>
+              <h3>The Boc Palma</h3>
+              <p>Calle Arxiduc Lluís Salvador 46, 07004 Palma, Spain</p>
+              <div class="links">
+                <a href="https://thebochostels.com/en/hostal/the-boc-palma/" target="_blank" rel="noopener noreferrer">Official site</a>
+                <a href="https://www.google.com/maps/search/?api=1&query=The+Boc+Palma" target="_blank" rel="noopener noreferrer">Directions</a>
+              </div>
+            </div>
+
+            <div class="stay">
+              <div class="tag">Guest house</div>
+              <h3>Hostal Pons</h3>
+              <p>Carrer del Vi, 8, 07012 Palma, Spain</p>
+              <div class="links">
+                <a href="https://hostalpons.com/" target="_blank" rel="noopener noreferrer">Official site</a>
+                <a href="https://www.google.com/maps/search/?api=1&query=Hostal+Pons+Palma" target="_blank" rel="noopener noreferrer">Directions</a>
+              </div>
+            </div>
+
+            <div class="stay">
+              <div class="tag">Hotel</div>
+              <h3>Hotel Almudaina</h3>
+              <p>Avenida Jaime III, 9, 07012 Palma de Mallorca, Spain</p>
+              <div class="links">
+                <a href="https://www.hotelalmudaina.com/en/" target="_blank" rel="noopener noreferrer">Official site</a>
+                <a href="https://www.google.com/maps/search/?api=1&query=Hotel+Almudaina+Palma" target="_blank" rel="noopener noreferrer">Directions</a>
+              </div>
+            </div>
+
+            <div class="stay">
+              <div class="tag">Hotel</div>
+              <h3>INNSiDE Palma Center</h3>
+              <p>Carrer de Font i Monteros, 23, 07003 Palma, Spain</p>
+              <div class="links">
+                <a href="https://www.melia.com/en/hotels/spain/majorca/innside-palma-center" target="_blank" rel="noopener noreferrer">Official site</a>
+                <a href="https://www.google.com/maps/search/?api=1&query=INNSiDE+Palma+Center" target="_blank" rel="noopener noreferrer">Directions</a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-
-  <script
-    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-    crossorigin=""
-  ></script>
-
-  <script>
-    const stays = [
-      {
-        name: "Hotel Palladium",
-        type: "Base hotel",
-        isBase: true,
-        address: "Paseo Mallorca 40, 07012 Palma, Spain",
-        website: "https://www.hotelpalladium.com/en/home/",
-        maps: "https://www.google.com/maps/search/?api=1&query=Hotel+Palladium+Paseo+Mallorca+40+Palma",
-        lat: 39.5716,
-        lng: 2.6460
-      },
-      {
-        name: "Apuntadores 8",
-        type: "Guest house",
-        isBase: false,
-        address: "C/ Apuntadores 8, 07012 Palma de Mallorca, Spain",
-        website: "https://www.apuntadoreshostal.com/en/apuntadores/",
-        maps: "https://www.google.com/maps/search/?api=1&query=Apuntadores+8+Palma",
-        lat: 39.568996,
-        lng: 2.645684
-      },
-      {
-        name: "El Josemari Hostel",
-        type: "Hostel",
-        isBase: false,
-        address: "Plaça Josep Maria del Quadrado, 2, Palma, Spain",
-        website: "https://www.eljosemari.com/en/",
-        maps: "https://www.google.com/maps/search/?api=1&query=El+Josemari+Hostel+Palma",
-        lat: 39.5684,
-        lng: 2.6519
-      },
-      {
-        name: "The Boc Palma",
-        type: "Hostel",
-        isBase: false,
-        address: "Calle Arxiduc Lluís Salvador 46, 07004 Palma, Spain",
-        website: "https://thebochostels.com/en/hostal/the-boc-palma/",
-        maps: "https://www.google.com/maps/search/?api=1&query=The+Boc+Palma",
-        lat: 39.5776,
-        lng: 2.6515
-      },
-      {
-        name: "Hostal Pons",
-        type: "Guest house",
-        isBase: false,
-        address: "Carrer del Vi, 8, 07012 Palma, Spain",
-        website: "https://hostalpons.com/",
-        maps: "https://www.google.com/maps/search/?api=1&query=Hostal+Pons+Palma",
-        lat: 39.5698,
-        lng: 2.6432
-      },
-      {
-        name: "Hotel Almudaina",
-        type: "Hotel",
-        isBase: false,
-        address: "Avenida Jaime III, 9, 07012 Palma de Mallorca, Spain",
-        website: "https://www.hotelalmudaina.com/en/",
-        maps: "https://www.google.com/maps/search/?api=1&query=Hotel+Almudaina+Palma",
-        lat: 39.5719,
-        lng: 2.6470
-      },
-      {
-        name: "INNSiDE Palma Center",
-        type: "Hotel",
-        isBase: false,
-        address: "Carrer de Font i Monteros, 23, 07003 Palma, Spain",
-        website: "https://www.melia.com/en/hotels/spain/majorca/innside-palma-center",
-        maps: "https://www.google.com/maps/search/?api=1&query=INNSiDE+Palma+Center",
-        lat: 39.5748,
-        lng: 2.6542
-      }
-    ];
-
-    const map = L.map("map").setView([39.5716, 2.6475], 14);
-
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      maxZoom: 19,
-      attribution: "&copy; OpenStreetMap contributors"
-    }).addTo(map);
-
-    const baseIcon = new L.Icon({
-      iconUrl: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png",
-      shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
-      iconSize: [25, 41],
-      iconAnchor: [12, 41],
-      popupAnchor: [1, -34],
-      shadowSize: [41, 41]
-    });
-
-    const defaultIcon = new L.Icon({
-      iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
-      shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
-      iconSize: [25, 41],
-      iconAnchor: [12, 41],
-      popupAnchor: [1, -34],
-      shadowSize: [41, 41]
-    });
-
-    const bounds = [];
-
-    stays.forEach((stay) => {
-      const marker = L.marker(
-        [stay.lat, stay.lng],
-        { icon: stay.isBase ? baseIcon : defaultIcon }
-      ).addTo(map);
-
-      marker.bindPopup(`
-        <div>
-          <strong>${stay.name}</strong><br />
-          ${stay.type}<br />
-          ${stay.address}<br /><br />
-          <a href="${stay.website}" target="_blank" rel="noopener noreferrer">Official site</a><br />
-          <a href="${stay.maps}" target="_blank" rel="noopener noreferrer">Directions</a>
-        </div>
-      `);
-
-      bounds.push([stay.lat, stay.lng]);
-    });
-
-    if (bounds.length > 0) {
-      map.fitBounds(bounds, { padding: [30, 30] });
-    }
-
-    const stayList = document.getElementById("stayList");
-
-    stays.forEach((stay) => {
-      const div = document.createElement("div");
-      div.className = stay.isBase ? "stay base" : "stay";
-
-      div.innerHTML = `
-        <div class="tag ${stay.isBase ? "base" : ""}">
-          ${stay.isBase ? "Main Group Hotel" : stay.type}
-        </div>
-        <h3>${stay.name}</h3>
-        <p>${stay.address}</p>
-        <div class="links">
-          <a href="${stay.website}" target="_blank" rel="noopener noreferrer">Official site</a>
-          <a href="${stay.maps}" target="_blank" rel="noopener noreferrer">Directions</a>
-        </div>
-      `;
-
-      stayList.appendChild(div);
-    });
-  </script>
 </body>
 </html>
